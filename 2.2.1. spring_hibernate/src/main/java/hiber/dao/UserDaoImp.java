@@ -8,11 +8,10 @@ import org.springframework.stereotype.Repository;
 
 
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
+
 public class UserDaoImp implements UserDao {
 
    @Autowired
@@ -31,7 +30,7 @@ public class UserDaoImp implements UserDao {
    }
    @Override
    public List<User> getUserByCar(String model, int series) {
-      String HQL = "select us from User us WHERE us.car.model= :model and us.car.series=: series";
+      String HQL = "from User us WHERE us.car.model= :model and us.car.series=: series";
       TypedQuery<User> query =  sessionFactory.getCurrentSession().createQuery(HQL, User.class);
       query.setParameter("model", model);
       query.setParameter("series", series);
